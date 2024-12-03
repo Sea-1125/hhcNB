@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PicSphere - 图片搜索</title>
+    <title>图片搜索 - PicSphere</title>
     <style>
-        /* Reset and basic styles */
+        /* 全局样式 */
         * {
             margin: 0;
             padding: 0;
@@ -13,261 +13,196 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2d2a64, #1a1c5c, #23244e);
-            color: white;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             overflow: hidden;
-            margin: 0;
-            flex-direction: column;
-            animation: backgroundAnimation 10s ease-in-out infinite;
         }
 
-        @keyframes backgroundAnimation {
-            0% { background: linear-gradient(135deg, #2d2a64, #1a1c5c, #23244e); }
-            50% { background: linear-gradient(135deg, #3f3c78, #5f5475, #6b5067); }
-            100% { background: linear-gradient(135deg, #2d2a64, #1a1c5c, #23244e); }
-        }
-
-        .container {
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
             text-align: center;
-            width: 90%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
+            width: 100%;
         }
 
-        .search-section h2 {
-            margin-bottom: 20px;
-            font-size: 36px;
-            font-weight: bold;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        /* 搜索栏样式 */
+        .search-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        input[type="text"], button {
-            width: 80%;
-            padding: 12px;
+        input {
+            padding: 15px 20px;
+            width: 300px;
+            font-size: 1rem;
             border: none;
-            border-radius: 8px;
-            outline: none;
-            font-size: 20px;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"] {
+            border-radius: 30px;
             background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            outline: none;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
 
-        input[type="text"]:focus {
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.7);
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         button {
-            background: linear-gradient(135deg, #ff6a00, #ee0979);
-            color: white;
-            font-weight: bold;
+            padding: 15px 25px;
+            margin-top: 20px;
+            background: #1f8ef1;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
-            transform: scale(1);
-            transition: transform 0.3s ease, background 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(31, 142, 241, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
             transform: scale(1.05);
-            background: linear-gradient(135deg, #ee0979, #ff6a00);
+            box-shadow: 0 12px 30px rgba(31, 142, 241, 0.8);
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            justify-content: center;
-            margin-top: 30px;
-            overflow-y: scroll;
-            max-height: 400px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.1);
-        }
-
-        .output {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
-            font-size: 18px;
-            color: #f0f0f0;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .output.hidden {
-            opacity: 0;
-        }
-
-        .output.visible {
-            opacity: 1;
-        }
-
-        /* Developer Info popup */
-        .dev-info-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 30px;
+        /* 图片展示卡片 */
+        .image-info {
             display: none;
-            width: 70%;
-            max-width: 600px;
-            text-align: center;
-            animation: popupAnimation 0.5s ease-out forwards;
-        }
-
-        @keyframes popupAnimation {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .dev-info-popup.active {
-            display: block;
-        }
-
-        .dev-info-popup .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .dev-info-popup p {
-            color: white;
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        .dev-info-popup a {
-            color: #ff6a00;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #888;
             margin-top: 20px;
-            padding: 20px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: slideIn 1s ease;
+            max-width: 500px;
         }
 
-        .footer a {
-            color: #ff6a00;
+        .image-info img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 15px;
+        }
+
+        .image-info h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .image-info p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 开发者信息 */
+        .developer-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-top: 20px;
+            transition: margin-top 0.3s ease;
+        }
+
+        .developer-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .developer-info p {
+            margin: 5px 0;
+        }
+
+        .developer-info a {
+            color: #1f8ef1;
             text-decoration: none;
+        }
+
+        .developer-info a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="search-section">
-            <h2>PicSphere - 图片搜索</h2>
-            <input type="text" id="searchQuery" placeholder="输入关键词搜索图片..." autofocus>
-            <button id="searchButton">搜索</button>
-            <div class="output hidden" id="outputMessage">请输入关键词以开始搜索。</div>
-        </div>
-
-        <div class="gallery" id="imageGallery"></div>
-
-        <!-- Developer Info Button -->
-        <button id="devInfoButton" style="margin-top: 20px; background: linear-gradient(135deg, #4e9df7, #1e1f97);">开发者信息</button>
-
-        <!-- Developer Info Popup -->
-        <div class="dev-info-popup" id="devInfoPopup">
-            <img src="https://s2.loli.net/2024/12/02/7TUw641XKynZjhY.jpg" alt="Avatar" class="avatar">
-            <p>开发者：Sea</p>
-            <p>Email: <a href="mailto:cxezysyf4843@gmail.com">cxezysyf4843@gmail.com</a></p>
-            <p>Telegram: <a href="https://t.me/liwuyyds" target="_blank">liwuyyds</a></p>
-            <button onclick="toggleDevInfo()" style="background: #ff6a00; padding: 10px 20px; border-radius: 8px; color: white;">关闭</button>
-        </div>
+    <h1>PicSphere 图片搜索</h1>
+    <div class="search-bar">
+        <input type="text" id="search-term" placeholder="输入图片关键词, 例如: 花朵">
+        <button onclick="fetchImage()">搜索</button>
+    </div>
+    <div id="image-info" class="image-info">
+        <img id="image" alt="图片展示">
+        <h2 id="image-title"></h2>
+        <p id="image-author"></p>
+        <p id="image-source"></p>
     </div>
 
-    <div class="footer">
-        <p>&copy; 2024 PicSphere - 所有权利保留</p>
+    <div class="developer-info" id="developer-info">
+        <img src="https://s2.loli.net/2024/12/02/7TUw641XKynZjhY.jpg" alt="开发者头像">
+        <p>Sea</p>
+        <p>Email: cxezysyf4843@gmail.com</p>
+        <p>Telegram: liwuyyds</p>
+        <p>© 2024 Sea Studio</p>
     </div>
 
     <script>
-        const apiKey = '47424145-d726877bcc4f43a4bd4186a6f';
-        const searchButton = document.getElementById('searchButton');
-        const searchQuery = document.getElementById('searchQuery');
-        const outputMessage = document.getElementById('outputMessage');
-        const imageGallery = document.getElementById('imageGallery');
-        const devInfoButton = document.getElementById('devInfoButton');
-        const devInfoPopup = document.getElementById('devInfoPopup');
+        async function fetchImage() {
+            const searchTerm = document.getElementById('search-term').value.trim();
 
-        searchButton.addEventListener('click', () => {
-            const query = searchQuery.value.trim();
-            if (query) {
-                searchImages(query);
-            } else {
-                outputMessage.textContent = '请输入关键词以开始搜索。';
-                outputMessage.classList.remove('hidden');
+            if (!searchTerm) {
+                alert("请输入搜索关键词！");
+                return;
             }
-        });
 
-        function searchImages(query) {
-            fetch(`https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&image_type=photo&per_page=20`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.hits.length > 0) {
-                        imageGallery.innerHTML = data.hits.map(image => {
-                            return `<div><img src="${image.webformatURL}" alt="${image.tags}"></div>`;
-                        }).join('');
-                        outputMessage.classList.add('hidden');
-                    } else {
-                        outputMessage.textContent = '没有找到相关图片。';
-                        outputMessage.classList.remove('hidden');
-                    }
-                })
-                .catch(error => {
-                    outputMessage.textContent = '搜索出错，请稍后再试。';
-                    outputMessage.classList.remove('hidden');
-                    console.error(error);
-                });
+            const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(searchTerm)}&client_id=YOUR_UNSPLASH_API_KEY`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.results.length > 0) {
+                    const image = data.results[0];
+                    document.getElementById('image').src = image.urls.regular;
+                    document.getElementById('image-title').textContent = image.alt_description || '无标题';
+                    document.getElementById('image-author').textContent = `摄影师: ${image.user.name}`;
+                    document.getElementById('image-source').textContent = `来源: Unsplash`;
+
+                    document.getElementById('image-info').style.display = 'block';
+                } else {
+                    alert("没有找到相关图片");
+                }
+            } catch (error) {
+                alert("图片加载失败，请稍后再试！");
+                console.error(error);
+            }
         }
-
-        function toggleDevInfo() {
-            devInfoPopup.classList.toggle('active');
-        }
-
-        devInfoButton.addEventListener('click', toggleDevInfo);
     </script>
 </body>
 </html>
