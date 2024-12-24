@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>张承熙专属</title>
+  <title>圣诞快乐</title>
   <style>
     body {
       margin: 0;
@@ -18,8 +18,14 @@
       font-family: 'Arial', sans-serif;
     }
 
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
     .tree {
       position: relative;
+      margin: 0 auto;
       width: 0;
       height: 0;
       border-left: 100px solid transparent;
@@ -82,6 +88,17 @@
       animation: fall 10s linear infinite;
     }
 
+    .message {
+      position: absolute;
+      top: 350px;
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fff;
+      animation: fadeIn 3s ease-in-out, flicker 2s infinite alternate;
+    }
+
     @keyframes glow {
       0%, 100% {
         filter: brightness(1);
@@ -102,6 +119,24 @@
       }
     }
 
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes flicker {
+      0%, 100% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff4, 0 0 30px #f80, 0 0 40px #ff4;
+      }
+      50% {
+        text-shadow: 0 0 5px #fff, 0 0 15px #ff4, 0 0 25px #f80, 0 0 35px #ff4;
+      }
+    }
+
     @keyframes fall {
       0% {
         transform: translateY(0) translateX(0);
@@ -115,9 +150,12 @@
   </style>
 </head>
 <body>
-  <div class="tree">
-    <div class="star"></div>
-    <div class="base"></div>
+  <div class="container">
+    <div class="tree">
+      <div class="star"></div>
+      <div class="base"></div>
+    </div>
+    <div class="message">张承熙 圣诞快乐</div>
   </div>
 
   <script>
