@@ -5,52 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>张承熙 圣诞快乐</title>
   <style>
+    /* 页面基础样式 */
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #001d3d, #000814);
+      background: radial-gradient(circle at bottom, #001d3d, #000814 80%);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       height: 100vh;
       color: #fff;
       font-family: 'Arial', sans-serif;
     }
 
-    /* 圣诞祝福文字 */
+    /* 祝福文字 */
     .message {
       position: absolute;
       top: 50px;
       font-size: 3rem;
       font-weight: bold;
-      color: #ffdd57;
-      text-shadow: 0 0 10px #ffdd57, 0 0 20px #ffd700, 0 0 30px #ff6a00;
-      animation: fadeIn 2s ease-in-out, glow 3s infinite alternate;
+      text-align: center;
+      color: #ffd700;
+      text-shadow: 0 0 20px #ffd700, 0 0 40px #ffa500;
+      animation: glow 3s infinite alternate;
+      z-index: 10;
     }
 
     /* 圣诞树容器 */
     .tree-container {
       position: relative;
       width: 300px;
-      height: 500px;
+      margin-bottom: 20px;
     }
 
     /* 圣诞树主体 */
     .tree {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
+      margin: 0 auto;
       width: 0;
       height: 0;
       border-left: 150px solid transparent;
       border-right: 150px solid transparent;
       border-bottom: 200px solid #0a5d24;
+      animation: glowTree 5s infinite alternate;
     }
 
-    /* 圣诞树层次 */
     .tree:before,
     .tree:after {
       content: '';
@@ -61,59 +62,48 @@
     }
 
     .tree:before {
-      bottom: 100px;
+      bottom: 150px;
       border-bottom: 150px solid #0a5d24;
     }
 
     .tree:after {
-      bottom: 200px;
-      border-bottom: 100px solid #0a5d24;
+      bottom: 300px;
+      border-bottom: 120px solid #0a5d24;
     }
 
-    /* 树顶星星 */
+    /* 星星 */
     .star {
       position: absolute;
-      top: -30px;
+      top: -50px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       background: radial-gradient(circle, gold, orange);
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      animation: twinkle 2s infinite alternate;
+      animation: twinkle 1.5s infinite alternate;
     }
 
-    /* 树底座 */
-    .base {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 40px;
-      background: #8b4513;
-      border-radius: 5px;
-    }
-
-    /* 彩灯 */
+    /* 灯带 */
     .lights {
       position: absolute;
-      bottom: 50px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 220px;
-      height: 220px;
+      width: 260px;
+      height: 300px;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-evenly;
+      flex-direction: column;
+      justify-content: space-around;
       animation: blink 2s infinite;
     }
 
     .lights div {
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       background: red;
       border-radius: 50%;
+      margin: 0 auto;
       animation: lightBlink 1.5s infinite;
     }
 
@@ -138,11 +128,12 @@
       bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(to bottom, red, darkred);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(to bottom, #d7263d, #a8141d);
       border: 3px solid gold;
-      border-radius: 5px;
+      border-radius: 8px;
+      animation: bobbing 3s infinite alternate;
     }
 
     .gift:before,
@@ -161,8 +152,8 @@
     }
 
     .gift:after {
-      left: 0;
       top: 50%;
+      left: 0;
       transform: translateY(-50%);
       width: 100%;
       height: 5px;
@@ -174,17 +165,17 @@
       top: -10px;
       background: white;
       border-radius: 50%;
-      opacity: 0.8;
+      opacity: 0.7;
       animation: fall 10s linear infinite;
     }
 
-    /* 动画效果 */
+    /* 动态效果 */
     @keyframes glow {
       0%, 100% {
-        text-shadow: 0 0 10px #ffdd57, 0 0 20px #ffd700, 0 0 30px #ff6a00;
+        text-shadow: 0 0 20px #ffd700, 0 0 40px #ffa500, 0 0 60px #ff4500;
       }
       50% {
-        text-shadow: 0 0 15px #ffdd57, 0 0 25px #ffd700, 0 0 40px #ff4500;
+        text-shadow: 0 0 30px #ffd700, 0 0 50px #ffa500, 0 0 70px #ff4500;
       }
     }
 
@@ -197,12 +188,30 @@
       }
     }
 
+    @keyframes blink {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.5);
+      }
+    }
+
     @keyframes lightBlink {
       0%, 100% {
         opacity: 1;
       }
       50% {
         opacity: 0.5;
+      }
+    }
+
+    @keyframes bobbing {
+      0%, 100% {
+        transform: translate(-50%, -5px);
+      }
+      50% {
+        transform: translate(-50%, 5px);
       }
     }
 
@@ -227,7 +236,6 @@
         <div></div><div></div><div></div><div></div>
         <div></div><div></div><div></div><div></div>
       </div>
-      <div class="base"></div>
     </div>
     <div class="gift"></div>
   </div>
