@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>张承熙专属</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #002233, #001122);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .tree {
+      position: relative;
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 150px solid #0a5;
+      animation: glow 2s infinite;
+    }
+
+    .tree:before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -75px;
+      width: 0;
+      height: 0;
+      border-left: 75px solid transparent;
+      border-right: 75px solid transparent;
+      border-bottom: 125px solid #0a5;
+    }
+
+    .tree:after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: -50px;
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 100px solid #0a5;
+    }
+
+    .star {
+      position: absolute;
+      top: -240px;
+      left: -15px;
+      width: 30px;
+      height: 30px;
+      background: gold;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: twinkle 1.5s infinite alternate;
+    }
+
+    .base {
+      position: absolute;
+      top: 150px;
+      left: -30px;
+      width: 60px;
+      height: 30px;
+      background: #814c27;
+      border-radius: 5px;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.5);
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(-50px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="tree">
+    <div class="star"></div>
+    <div class="base"></div>
+  </div>
+
+  <script>
+    // 生成雪花
+    const createSnowflakes = () => {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.style.width = snowflake.style.height = `${Math.random() * 8 + 2}px`;
+      snowflake.style.left = `${Math.random() * window.innerWidth}px`;
+      snowflake.style.animationDuration = `${Math.random() * 3 + 8}s`;
+      document.body.appendChild(snowflake);
+
+      setTimeout(() => {
+        snowflake.remove();
+      }, 11000);
+    };
+
+    setInterval(createSnowflakes, 200);
+  </script>
+</body>
+</html>
