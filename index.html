@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>圣诞快乐</title>
+  <title>张承熙 圣诞快乐</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #002233, #001122);
+      background: linear-gradient(to bottom, #001d3d, #000814);
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -18,103 +19,102 @@
       font-family: 'Arial', sans-serif;
     }
 
-    .container {
-      text-align: center;
-      position: relative;
-    }
-
+    /* 圣诞祝福文字 */
     .message {
       position: absolute;
       top: 50px;
-      width: 100%;
-      text-align: center;
-      font-size: 2rem;
+      font-size: 3rem;
       font-weight: bold;
-      color: #fff;
-      animation: fadeIn 3s ease-in-out, flicker 2s infinite alternate;
-      z-index: 10;
+      color: #ffdd57;
+      text-shadow: 0 0 10px #ffdd57, 0 0 20px #ffd700, 0 0 30px #ff6a00;
+      animation: fadeIn 2s ease-in-out, glow 3s infinite alternate;
     }
 
+    /* 圣诞树容器 */
     .tree-container {
       position: relative;
-      margin-top: 80px;
+      width: 300px;
+      height: 500px;
     }
 
+    /* 圣诞树主体 */
     .tree {
-      position: relative;
-      margin: 0 auto;
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 150px solid #0a5;
-      animation: glow 2s infinite;
-    }
-
-    .tree:before {
-      content: '';
       position: absolute;
-      top: -100px;
-      left: -75px;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 75px solid transparent;
-      border-right: 75px solid transparent;
-      border-bottom: 125px solid #0a5;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 200px solid #0a5d24;
     }
 
+    /* 圣诞树层次 */
+    .tree:before,
     .tree:after {
       content: '';
       position: absolute;
-      top: -200px;
-      left: -50px;
-      width: 0;
-      height: 0;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      border-bottom: 100px solid #0a5;
+      left: -125px;
+      border-left: 125px solid transparent;
+      border-right: 125px solid transparent;
     }
 
+    .tree:before {
+      bottom: 100px;
+      border-bottom: 150px solid #0a5d24;
+    }
+
+    .tree:after {
+      bottom: 200px;
+      border-bottom: 100px solid #0a5d24;
+    }
+
+    /* 树顶星星 */
     .star {
       position: absolute;
-      top: -240px;
-      left: -15px;
-      width: 30px;
-      height: 30px;
-      background: gold;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, gold, orange);
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      animation: twinkle 1.5s infinite alternate;
+      animation: twinkle 2s infinite alternate;
     }
 
+    /* 树底座 */
     .base {
       position: absolute;
-      top: 150px;
-      left: -30px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 60px;
-      height: 30px;
-      background: #814c27;
+      height: 40px;
+      background: #8b4513;
       border-radius: 5px;
     }
 
+    /* 彩灯 */
     .lights {
       position: absolute;
-      top: -190px;
-      left: -80px;
-      width: 160px;
-      height: 230px;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 220px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      animation: blink 2s infinite alternate;
+      justify-content: space-evenly;
+      animation: blink 2s infinite;
     }
 
     .lights div {
-      width: 10px;
-      height: 10px;
+      width: 15px;
+      height: 15px;
       background: red;
       border-radius: 50%;
-      margin: 5px;
-      animation: light-blink 1s infinite;
+      animation: lightBlink 1.5s infinite;
     }
 
     .lights div:nth-child(2n) {
@@ -124,68 +124,86 @@
 
     .lights div:nth-child(3n) {
       background: blue;
-      animation-delay: 0.5s;
+      animation-delay: 0.6s;
     }
 
     .lights div:nth-child(4n) {
       background: green;
-      animation-delay: 0.7s;
+      animation-delay: 0.9s;
     }
 
-    @keyframes glow {
-      0%, 100% {
-        filter: brightness(1);
-      }
-      50% {
-        filter: brightness(1.5);
-      }
+    /* 礼物盒 */
+    .gift {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(to bottom, red, darkred);
+      border: 3px solid gold;
+      border-radius: 5px;
     }
 
-    @keyframes twinkle {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.2);
-        opacity: 0.8;
-      }
+    .gift:before,
+    .gift:after {
+      content: '';
+      position: absolute;
+      background: gold;
     }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+    .gift:before {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 100%;
     }
 
-    @keyframes flicker {
-      0%, 100% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #ff4, 0 0 30px #f80, 0 0 40px #ff4;
-      }
-      50% {
-        text-shadow: 0 0 5px #fff, 0 0 15px #ff4, 0 0 25px #f80, 0 0 35px #ff4;
-      }
+    .gift:after {
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 5px;
     }
 
-    @keyframes light-blink {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.4;
-      }
-    }
-
+    /* 雪花 */
     .snowflake {
       position: fixed;
       top: -10px;
       background: white;
       border-radius: 50%;
-      opacity: 0.7;
+      opacity: 0.8;
       animation: fall 10s linear infinite;
+    }
+
+    /* 动画效果 */
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px #ffdd57, 0 0 20px #ffd700, 0 0 30px #ff6a00;
+      }
+      50% {
+        text-shadow: 0 0 15px #ffdd57, 0 0 25px #ffd700, 0 0 40px #ff4500;
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes lightBlink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
     }
 
     @keyframes fall {
@@ -194,26 +212,24 @@
         opacity: 1;
       }
       100% {
-        transform: translateY(100vh) translateX(-50px);
+        transform: translateY(100vh) translateX(-30px);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="message">张承熙 圣诞快乐</div>
-    <div class="tree-container">
-      <div class="tree">
-        <div class="star"></div>
-        <div class="lights">
-          <!-- 圣诞灯光 -->
-          <div></div><div></div><div></div><div></div>
-          <div></div><div></div><div></div><div></div>
-        </div>
-        <div class="base"></div>
+  <div class="message">张承熙 圣诞快乐</div>
+  <div class="tree-container">
+    <div class="tree">
+      <div class="star"></div>
+      <div class="lights">
+        <div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div>
       </div>
+      <div class="base"></div>
     </div>
+    <div class="gift"></div>
   </div>
 
   <script>
