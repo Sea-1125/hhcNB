@@ -1,95 +1,154 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>张承熙新年快乐</title>
-  <style>
-    /* 设置页面全屏背景和中心对齐 */
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-      background-color: #000000; /* 黑色背景 */
-      color: #FF1493; /* 粉色文字 */
-      text-align: center;
-      overflow: hidden;
-    }
-
-    /* 文字容器样式 */
-    .container {
-      font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 3px;
-      text-shadow: 0 0 10px rgba(255, 20, 147, 0.7), 0 0 20px rgba(255, 20, 147, 0.6), 0 0 30px rgba(255, 20, 147, 0.5);
-      animation: fadeInOut 2.5s infinite alternate, bounce 1.5s ease infinite;
-      position: relative;
-    }
-
-    /* 新年快乐的特殊样式 */
-    .highlight {
-      font-size: 4rem;
-      color: #FF69B4; /* 亮粉色来突出 "新年快乐" */
-      text-shadow: 0 0 20px #FF69B4, 0 0 30px #FF69B4, 0 0 40px #FF69B4;
-    }
-
-    /* 弹跳动画 */
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-    /* 渐变和闪烁效果 */
-    @keyframes fadeInOut {
-      0% {
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-
-    /* 优化按钮样式 */
-    .button {
-      margin-top: 30px;
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      color: #000000; /* 黑色按钮文字 */
-      background-color: #FF1493; /* 粉色背景 */
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-transform: uppercase;
-      box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
-      transition: background-color 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #FF69B4; /* 更亮的粉色 */
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hhc666 的文本分析</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+        .profile h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <div>张承熙</div>
-    <div class="highlight">新年快乐！</div>
-    <button class="button" onclick="alert('祝你天天开心 爱你o3o😘')">点我</button>
-  </div>
+    <div class="profile">
+        <img src="https://s2.loli.net/2024/12/02/7TUw641XKynZjhY.jpg" alt="头像">
+        <h2>hhc666</h2>
+    </div>
+
+    <div class="container">
+        <h1>TextRazor 文本分析</h1>
+        <textarea id="textInput" placeholder="请输入要分析的文本..."></textarea>
+        <button onclick="analyzeText()">分析文本</button>
+
+        <div id="result">
+            <h3>分析结果：</h3>
+            <div id="keywords"></div>
+            <div id="entities"></div>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeText() {
+            const apiKey = '6eed74dc393a1d4d8a334ee1a5274870c1d31c444d90d0d46a196cd4'; // 你的 TextRazor API 密钥
+            const text = document.getElementById('textInput').value;
+            const url = 'https://api.textrazor.com/';
+            
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'x-textrazor-key': apiKey
+            };
+
+            const data = new URLSearchParams();
+            data.append('text', text);
+            data.append('extractors', 'entities,keywords'); // 提取关键词和实体
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: data
+                });
+
+                const result = await response.json();
+                displayResults(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function displayResults(result) {
+            const keywordsDiv = document.getElementById('keywords');
+            const entitiesDiv = document.getElementById('entities');
+
+            keywordsDiv.innerHTML = '';
+            entitiesDiv.innerHTML = '';
+
+            if (result.response && result.response.keywords) {
+                keywordsDiv.innerHTML = '<h4>关键词：</h4>';
+                result.response.keywords.forEach(keyword => {
+                    keywordsDiv.innerHTML += `<p>${keyword.token} (频次: ${keyword.relevance})</p>`;
+                });
+            } else {
+                keywordsDiv.innerHTML = '<p>未能提取到关键词。</p>';
+            }
+
+            if (result.response && result.response.entities) {
+                entitiesDiv.innerHTML = '<h4>实体：</h4>';
+                result.response.entities.forEach(entity => {
+                    entitiesDiv.innerHTML += `<p>${entity.text} (类型: ${entity.type})</p>`;
+                });
+            } else {
+                entitiesDiv.innerHTML = '<p>未能提取到实体。</p>';
+            }
+        }
+    </script>
 
 </body>
 </html>
